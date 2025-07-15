@@ -7,6 +7,10 @@ import { UpdateGameDto } from './dto/update-game.dto';
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
+  @Post()
+  create(@Body() createGameDto: CreateGameDto) {
+    return this.gamesService.create(createGameDto);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gamesService.findOne(+id);
@@ -14,8 +18,7 @@ export class GamesController {
 
   @Patch(':id/join')
   joinGame(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
-    const {playerName} = updateGameDto;
-    console.log(playerName);
+  
     return this.gamesService.joinGame(+id, updateGameDto);
   }
 
