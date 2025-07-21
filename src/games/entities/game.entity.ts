@@ -3,7 +3,10 @@ import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescr
 import { User } from "src/users/entities/user.entity";
 import { GamePlayer } from "./game-player.entity";
 
-@Table
+@Table({
+    tableName: 'games',
+    timestamps: true,
+})
 export class Game extends Model {
 
     @Column({

@@ -1,7 +1,10 @@
 import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Game } from "./game.entity";
 import { User } from "src/users/entities/user.entity";
-@Table
+@Table({
+    tableName: 'games_players',
+    timestamps: true,
+})
 export class GamePlayer extends Model{
     
     @ForeignKey(() => Game)

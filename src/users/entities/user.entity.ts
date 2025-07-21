@@ -1,9 +1,12 @@
 import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
-import { Col } from "sequelize/types/utils";
 import { GamePlayer } from "src/games/entities/game-player.entity";
 import { Game } from "src/games/entities/game.entity";
+import { UserRole } from "../interfaces/user-role.interface";
 
-@Table
+@Table({
+    tableName: 'users',
+    timestamps: true,
+})
 export class User extends Model {
 
     @Column({
@@ -18,7 +21,19 @@ export class User extends Model {
     })
     email: string;
 
-        @Column({
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    password: string;
+
+    @Column({
+        type: DataType.ARRAY(DataType.ENUM(UserRole.ADMIN, UserRole.PLAYER)),
+        allowNull: false,
+    })
+    rol: UserRole[];
+
+    @Column({
         type: DataType.BOOLEAN,
         allowNull: false,
         defaultValue: true,
@@ -26,5 +41,5 @@ export class User extends Model {
     isActive: boolean;
 
     @BelongsToMany(() => Game, () => GamePlayer)
-    game:Game[]
+    games: Game[]
 }
